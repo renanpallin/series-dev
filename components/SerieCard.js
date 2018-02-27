@@ -39,16 +39,22 @@ const styles = StyleSheet.create({
 	},
 	cardTitleContainer: {
 		position: 'absolute',
-		top: -50,
-		backgroundColor: 'white',
+		top: -50, // @see o mesmo alor
+		backgroundColor: 'pink',
 		opacity: 0.8,
 		width: '100%',
-		height: 50,
-		padding: 10,
+		height: 50, // @see o mesmo valor
+
+		paddingTop: 10,
+		paddingBottom: 10,
+
+		paddingLeft: 3,
+		paddingRight: 3,
+
 	},
 	cardTitle: {
 		// color: 'white',
-		fontSize: 18,
+		fontSize: 15,
 		fontWeight: 'bold',
 	},
 });

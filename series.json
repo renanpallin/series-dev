@@ -25,5 +25,57 @@
 		"img": "https://images-na.ssl-images-amazon.com/images/M/MV5BMTU2NTg4MTc5OF5BMl5BanBnXkFtZTcwMzc2MzYzMQ@@._V1_.jpg",
 		"description":
 			"A young African American teen attempts to survive with his dysfunctional family and his all white school in the 1980s."
+	}, {
+		"id": 4,
+		"title": "Two and a Half Man",
+		"gender": "Comédia",
+		"rate": 97,
+		"img": "https://images-na.ssl-images-amazon.com/images/M/MV5BMTU2NTg4MTc5OF5BMl5BanBnXkFtZTcwMzc2MzYzMQ@@._V1_.jpg",
+		"description":
+			"A hedonistic jingle writer's free-wheeling life comes to an abrupt halt when his brother and 10-year-old nephew move into his beach-front house."
+	},
+	{
+		"id": 5,
+		"title": "Friends",
+		"gender": "Comédia",
+		"rate": 95,
+		"img": "https://upload.wikimedia.org/wikipedia/pt/6/6d/Friends-logo.jpg",
+		"description":
+			"Follows the personal and professional lives of six 20 to 30-something-year-old friends living in Manhattan."
+	},
+	{
+		"id": 6,
+		"title": "Todo mundo odeia o Chris",
+		"gender": "Comédia",
+		"rate": 100,
+		"img": "https://images-na.ssl-images-amazon.com/images/M/MV5BMTU2NTg4MTc5OF5BMl5BanBnXkFtZTcwMzc2MzYzMQ@@._V1_.jpg",
+		"description":
+			"A young African American teen attempts to survive with his dysfunctional family and his all white school in the 1980s."
+	},{
+		"id": 7,
+		"title": "Two and a Half Man",
+		"gender": "Comédia",
+		"rate": 97,
+		"img": "https://images-na.ssl-images-amazon.com/images/M/MV5BMTU2NTg4MTc5OF5BMl5BanBnXkFtZTcwMzc2MzYzMQ@@._V1_.jpg",
+		"description":
+			"A hedonistic jingle writer's free-wheeling life comes to an abrupt halt when his brother and 10-year-old nephew move into his beach-front house."
+	},
+	{
+		"id": 8,
+		"title": "Friends",
+		"gender": "Comédia",
+		"rate": 95,
+		"img": "https://upload.wikimedia.org/wikipedia/pt/6/6d/Friends-logo.jpg",
+		"description":
+			"Follows the personal and professional lives of six 20 to 30-something-year-old friends living in Manhattan."
+	},
+	{
+		"id": 9,
+		"title": "Todo mundo odeia o Chris",
+		"gender": "Comédia",
+		"rate": 100,
+		"img": "https://images-na.ssl-images-amazon.com/images/M/MV5BMTU2NTg4MTc5OF5BMl5BanBnXkFtZTcwMzc2MzYzMQ@@._V1_.jpg",
+		"description":
+			"A young African American teen attempts to survive with his dysfunctional family and his all white school in the 1980s."
 	}
 ]

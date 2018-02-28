@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		padding: 10,
-		height: 200, // @todo: deixar quadrado
+		height: Dimensions.get('window').width / 2 , // @optional
 	},
 	image: {},
 	card: {

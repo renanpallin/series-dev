@@ -8,6 +8,10 @@ export default StackNavigator({
     'Main': {
         screen: SeriesList
     }
+}, {
+	navigationOptions: {
+		title: 'Series'
+	}
 })
 
 const styles = StyleSheet.create({

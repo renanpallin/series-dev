@@ -2,11 +2,15 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
-import SeriesList from './pages/SeriesList';
+import SeriesPage from './pages/SeriesPage';
+import SerieDetailPage from './pages/SerieDetailPage';
 
 export default StackNavigator({
     'Main': {
-        screen: SeriesList
+        screen: SeriesPage
+    },
+    'SerieDetail': {
+    	screen: SerieDetailPage
     }
 }, {
 	navigationOptions: {

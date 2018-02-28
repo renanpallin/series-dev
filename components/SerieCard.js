@@ -1,27 +1,36 @@
 import React from 'react';
-import { Dimensions, StyleSheet, View, Text, Image } from 'react-native';
+import {
+	Dimensions,
+	StyleSheet,
+	View,
+	Text,
+	Image,
+	TouchableOpacity,
+} from 'react-native';
 
-const SerieCard = ({ serie }) => (
+const SerieCard = ({ serie, navigateToDetail }) => (
 	<View style={styles.container}>
 		<View style={styles.card}>
-			{/*
-				stretch: Aperta a imagem e faz caber, ajusta largura e altura
-				cover: Mantém a imagem original, mas cobre todo o container, se baseando no MENOR entre a largura e a altura
-				contain: Não estica a imagem, faz caber sem mexer nas proporções, se baseando no MAIOR entre a largura e a altura
-			*/}
-			<Image
-				source={{
-					uri: serie.img,
-				}}
-				style={styles.image}
-				aspectRatio={1}
-				resizeMode="cover"
-			/>
-			<View>
-				<View style={styles.cardTitleContainer}>
-					<Text style={styles.cardTitle}>{serie.title}</Text>
+			<TouchableOpacity onPress={() => navigateToDetail(serie)}>
+				{/*
+					stretch: Aperta a imagem e faz caber, ajusta largura e altura
+					cover: Mantém a imagem original, mas cobre todo o container, se baseando no MENOR entre a largura e a altura
+					contain: Não estica a imagem, faz caber sem mexer nas proporções, se baseando no MAIOR entre a largura e a altura
+				*/}
+				<Image
+					source={{
+						uri: serie.img,
+					}}
+					style={styles.image}
+					aspectRatio={1}
+					resizeMode="cover"
+				/>
+				<View>
+					<View style={styles.cardTitleContainer}>
+						<Text style={styles.cardTitle}>{serie.title}</Text>
+					</View>
 				</View>
-			</View>
+			</TouchableOpacity>
 		</View>
 	</View>
 );
@@ -30,7 +39,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		padding: 10,
-		height: Dimensions.get('window').width / 2 , // @optional
+		height: Dimensions.get('window').width / 2, // @optional
 	},
 	image: {},
 	card: {
@@ -50,7 +59,6 @@ const styles = StyleSheet.create({
 
 		paddingLeft: 3,
 		paddingRight: 3,
-
 	},
 	cardTitle: {
 		// color: 'white',

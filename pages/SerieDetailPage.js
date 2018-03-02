@@ -34,11 +34,11 @@ export default class SerieDetailPage extends React.Component {
 		};
 
 		return (
-			<ScrollView>
+			<ScrollView ref={el => this.sc = el}>
 				<Image style={styles.image} source={{ uri: serie.img }} />
 				<Line label="Gênero" content={serie.gender}  />
 				<Line label="Nota" content={serie.rate}  />
-				<LongText label="Descrição" text={serie.description} />
+				<LongText label="Descrição" text={serie.description} scrollToBottom={y => this.sc.scrollTo({ y })} />
 			</ScrollView>
 		);
 	}

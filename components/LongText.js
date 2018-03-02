@@ -1,14 +1,55 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {
+	View,
+	Text,
+	StyleSheet,
+	TouchableWithoutFeedback,
+	LayoutAnimation,
+	NativeModules,
+} from 'react-native';
 
-const Line = ({ label = '', text = '' }) => {
-	return (
-		<View style={styles.line}>
-			<Text style={[styles.cell, styles.label]}>{label}</Text>
-			<Text style={[styles.cell, styles.content]}>{text}</Text>
-		</View>
-	);
-};
+// This makes the animation work on Android devices
+NativeModules.UIManager.setLayoutAnimationEnabledExperimental &&
+	NativeModules.UIManager.setLayoutAnimationEnabledExperimental(true);
+
+export default class LongText extends React.Component {
+	state = {
+		isExpanded: true,
+	};
+
+	toggleExpanded() {
+		this.setState({ isExpanded: !this.state.isExpanded });
+
+		if (this.state.isExpanded) {
+			setTimeout(() => this.props.scrollToBottom(800), 200)
+		}
+	}
+
+	componentWillUpdate(nextProps, nextState) {
+		LayoutAnimation.spring();
+	}
+
+	render() {
+		const { label = '', text = '' } = this.props;
+		return (
+			<View style={styles.line}>
+				<Text style={[styles.cell, styles.label]}>{label}</Text>
+				<TouchableWithoutFeedback onPress={() => this.toggleExpanded()}>
+					<View
+						style={
+							this.state.isExpanded
+								? styles.expanded
+								: styles.collapsed
+						}>
+						<Text style={[styles.cell, styles.content]}>
+							{text}
+						</Text>
+					</View>
+				</TouchableWithoutFeedback>
+			</View>
+		);
+	}
+}
 
 const styles = StyleSheet.create({
 	line: {
@@ -38,6 +79,10 @@ const styles = StyleSheet.create({
 	longLabel: {
 		fontSize: 12,
 	},
+	collapsed: {
+		maxHeight: 65,
+	},
+	expanded: {
+		flex: 1,
+	},
 });
-
-export default Line;

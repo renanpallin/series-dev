@@ -4,14 +4,21 @@ import { StackNavigator } from 'react-navigation';
 
 import SeriesPage from './pages/SeriesPage';
 import SerieDetailPage from './pages/SerieDetailPage';
+import SerieFormPage from './pages/SerieFormPage';
 
 export default StackNavigator(
     {
+        SerieForm: {
+            screen: SerieFormPage,
+        },
+        Main: {
+            screen: SeriesPage,
+        },
         SerieDetail: {
             screen: SerieDetailPage,
             navigationOptions: ({ navigation }) => {
                 // const { title } = navigation.state.params.serie;
-                const title = "Black Mirror"
+                const title = 'Black Mirror';
 
                 return {
                     title,
@@ -21,9 +28,6 @@ export default StackNavigator(
                     },
                 };
             },
-        },
-        Main: {
-            screen: SeriesPage,
         },
     },
     {

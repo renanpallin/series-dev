@@ -1,27 +1,52 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Text, Image } from 'react-native';
-import series from '../series.json';
+import {
+	StyleSheet,
+	KeyboardAvoidingView,
+	View,
+	Text,
+	Image,
+	TextInput,
+	Picker,
+	Slider,
+	Button,
+	DatePickerAndroid
+} from 'react-native';
+// import series from '../series.json';
 
 import Line from '../components/Line';
 import LongText from '../components/LongText';
+import FormRow from '../components/FormRow';
 
 export default class SerieDetailPage extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			series: [],
+			title: '',
+			img: '',
+			gender: '',
+			rate: 0,
+			description: '',
 		};
 	}
 
-	componentDidMount() {
-		this.setState({
-			series,
-		});
+	async openDatePicker() {
+		try {
+			const { action, year, month, day } = await DatePickerAndroid.open({
+				// Use `new Date()` for current date.
+				// May 25 2020. Month 0 is January.
+				date: new Date(2020, 4, 25),
+			});
+			if (action !== DatePickerAndroid.dismissedAction) {
+				// Selected year, month (0-11), day
+			}
+		} catch ({ code, message }) {
+			console.warn('Cannot open date picker', message);
+		}
 	}
 
 	render() {
-		const { serie } = this.props.navigation.state.params;
+		// const { serie } = this.props.navigation.state.params;
 		// const serie = {
 		// 	id: 1,
 		// 	title: 'Black Mirror',
@@ -34,25 +59,98 @@ export default class SerieDetailPage extends React.Component {
 		// };
 
 		return (
-			<ScrollView ref={el => this.sc = el}>
-				<Image style={styles.image} source={{ uri: serie.img }} />
-				<Line label="Gênero" content={serie.gender}  />
-				<Line label="Nota" content={serie.rate}  />
-				<LongText label="Descrição" text={serie.description} scrollToBottom={y => this.sc.scrollTo({ y })} />
-			</ScrollView>
+			<KeyboardAvoidingView
+				resetScrollToCoords={{ x: 0, y: 0 }}
+				style={styles.container}
+				behavior="padding"
+				contentContainerStyle={styles.ccs}>
+				<FormRow>
+					<TextInput
+						onChangeText={title => this.setState({ title })}
+						value={this.state.title}
+						placeholder="Título"
+						style={[styles.baseInput, styles.input]}
+					/>
+				</FormRow>
+				<FormRow>
+					<TextInput
+						onChangeText={img => this.setState({ img })}
+						value={this.state.img}
+						placeholder="Imagem URL"
+						style={[styles.baseInput, styles.input]}
+					/>
+				</FormRow>
+				<FormRow>
+					<Picker
+						selectedValue={this.props.shift}
+						onValueChange={gender => this.setState({ gender })}>
+						<Picker.Item label="Comédia" value="comedy" />
+						<Picker.Item label="Terror" value="horror" />
+						<Picker.Item label="Policial" value="officer" />
+						<Picker.Item label="Ficção" value="scifi" />
+						<Picker.Item label="Avenura" value="adventure" />
+					</Picker>
+				</FormRow>
+
+				<FormRow>
+					<View style={styles.sameRow}>
+						<Text>Nota:</Text>
+						<Text>{this.state.rate}</Text>
+					</View>
+					<Slider
+						onValueChange={rate => this.setState({ rate })}
+						minimumValue={0}
+						maximumValue={100}
+						step={5}
+					/>
+				</FormRow>
+				<FormRow>
+					<TextInput
+						onChangeText={text => this.setState({ text })}
+						value={this.state.text}
+						placeholder="Descrição"
+						style={[styles.baseInput, styles.longInput]}
+						numberOfLines={4}
+					/>
+				</FormRow>
+				<Button
+					title="Salvar"
+					onPress={() => {
+						console.log(this.state);
+						this.openDatePicker();
+					}}
+				/>
+			</KeyboardAvoidingView>
 		);
 	}
 }
-// <ScrollView>
-// 	<Text>Lista da parada</Text>
-// 	{this.state.series.map(serie => {
-// 		return <SerieCard key={serie.id} serie={serie} />
-// 	})}
-// </ScrollView>
 
 const styles = StyleSheet.create({
+	container: {
+		paddingLeft: 10,
+		paddingRight: 10,
+	},
 	image: {
-		aspectRatio: 1
+		aspectRatio: 1,
+	},
+	baseInput: {
+		color: '#000',
+		paddingRight: 5, // to the placeholder
+		paddingLeft: 5, // to the placeholder
+		paddingBottom: 10,
+	},
+	input: {
+		// fontSize: 25,
+	},
+	longInput: {
+		// fontSize: 18,
+	},
+	sameRow: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		paddingLeft: 10,
+		paddingRight: 10,
+		marginBottom: 10,
 	},
 	// list: {
 	// 	// flexDirection: 'row',

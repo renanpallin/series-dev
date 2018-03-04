@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Text, Image } from 'react-native';
-import series from '../series.json';
 
 import Line from '../components/Line';
 import LongText from '../components/LongText';
@@ -12,12 +11,6 @@ export default class SerieDetailPage extends React.Component {
 		this.state = {
 			series: [],
 		};
-	}
-
-	componentDidMount() {
-		this.setState({
-			series,
-		});
 	}
 
 	render() {

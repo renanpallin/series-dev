@@ -1,41 +1,19 @@
-import React from 'react';
-import { StackNavigator, SwitchNavigator } from "react-navigation";
+import React from "react";
+
+import { StackNavigator } from "react-navigation";
 
 import SeriesPage from "./pages/SeriesPage";
 import SerieDetailPage from "./pages/SerieDetailPage";
 import SerieFormPage from "./pages/SerieFormPage";
-import LoginPage from "./pages/LoginPage";
 
-const stackNavigatorOptions = {
-    navigationOptions: {
-        title: "Series",
-        headerTintColor: "white",
-        headerStyle: {
-            backgroundColor: "#6ca2f7",
-            borderBottomWidth: 1,
-            borderBottomColor: "#C5C5C5"
-        },
-        headerTitleStyle: {
-            color: "white",
-            fontSize: 30,
-            alignSelf: "center"
-        }
-    }
-};
+// minha primeira dependência cíclica kkk
+import { stackNavigatorOptions } from "./Router";
 
-const UnauthStack = StackNavigator(
-    {
-        Login: {
-            screen: LoginPage
-        }
-    },
-    stackNavigatorOptions
-);
-
-class SeriesApp extends React.Component {
+export default class SeriesApp extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log(this.props.navigation.state);
         const { user } = this.props.navigation.state.params;
 
         this.state = {
@@ -74,14 +52,3 @@ class SeriesApp extends React.Component {
         return <SerieStack />;
     }
 }
-
-const AuthStack = StackNavigator({
-    Main: SeriesApp
-});
-
-const Router = SwitchNavigator({
-    Unauth: UnauthStack,
-    Auth: AuthStack
-});
-
-export default Router;

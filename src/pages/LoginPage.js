@@ -34,6 +34,7 @@ export default class LoginPage extends React.Component {
 			.auth()
 			.signInWithEmailAndPassword(email, password)
 			.then(user => {
+				console.log('LoginPage', user)
 				this.props.navigation.navigate('Auth', { user })
 			})
 			.catch(error => {

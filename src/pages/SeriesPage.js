@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Text, FlatList } from 'react-native';
-import series from '../series.json';
+import series from '../../series.json';
 
 import SerieCard from '../components/SerieCard';
 

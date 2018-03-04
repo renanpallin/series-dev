@@ -1,58 +1,33 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
-import SeriesPage from './pages/SeriesPage';
-import SerieDetailPage from './pages/SerieDetailPage';
-import SerieFormPage from './pages/SerieFormPage';
+import Router from "./Router";
 
-export default StackNavigator(
-    {
-        SerieForm: {
-            screen: SerieFormPage,
-        },
-        Main: {
-            screen: SeriesPage,
-        },
-        SerieDetail: {
-            screen: SerieDetailPage,
-            navigationOptions: ({ navigation }) => {
-                // const { title } = navigation.state.params.serie;
-                const title = 'Black Mirror';
+import firebase from "firebase";
 
-                return {
-                    title,
-                    headerTitleStyle: {
-                        color: 'white',
-                        fontSize: 30,
-                    },
-                };
-            },
-        },
-    },
-    {
-        navigationOptions: {
-            title: 'Series',
-            headerTintColor: 'white',
-            headerStyle: {
-                backgroundColor: '#6ca2f7',
-                borderBottomWidth: 1,
-                borderBottomColor: '#C5C5C5',
-            },
-            headerTitleStyle: {
-                color: 'white',
-                fontSize: 30,
-                alignSelf: 'center',
-            },
-        },
+export default class App extends React.Component {
+    componentDidMount() {
+        var config = {
+            apiKey: "AIzaSyDoWiyuevt0NVQo2-4ECHcsN-KF4xpJxio",
+            authDomain: "series-dev.firebaseapp.com",
+            databaseURL: "https://series-dev.firebaseio.com",
+            projectId: "series-dev",
+            storageBucket: "",
+            messagingSenderId: "731104072505"
+        };
+        firebase.initializeApp(config);
     }
-);
+
+    render() {
+        return <Router />;
+    }
+}
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "center"
+    }
 });

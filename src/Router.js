@@ -35,7 +35,7 @@ const UnauthStack = StackNavigator(
 
 const Router = SwitchNavigator({
     Unauth: UnauthStack,
-    Auth: SeriesApp
+    Auth: SeriesApp,
 });
 
 export default Router;

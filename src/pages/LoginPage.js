@@ -34,8 +34,8 @@ export default class LoginPage extends React.Component {
 			.auth()
 			.signInWithEmailAndPassword(email, password)
 			.then(user => {
-				console.log('LoginPage', user)
-				this.props.navigation.navigate('Auth', { user })
+				console.log("LoginPage", user);
+				this.props.navigation.navigate("Auth", { user });
 			})
 			.catch(error => {
 				console.log(error);
@@ -90,7 +90,7 @@ export default class LoginPage extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		paddingLeft: 10,
-		paddingRight: 10
+		paddingRight: 10,n
 	},
 	image: {
 		aspectRatio: 1

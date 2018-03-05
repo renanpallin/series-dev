@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
 	StyleSheet,
 	KeyboardAvoidingView,
@@ -9,24 +9,26 @@ import {
 	Picker,
 	Slider,
 	Button,
-	DatePickerAndroid
-} from 'react-native';
+	DatePickerAndroid,
+	CameraRoll,
+	PermissionsAndroid
+} from "react-native";
 // import series from '../series.json';
 
-import Line from '../components/Line';
-import LongText from '../components/LongText';
-import FormRow from '../components/FormRow';
+import Line from "../components/Line";
+import LongText from "../components/LongText";
+import FormRow from "../components/FormRow";
 
 export default class SerieDetailPage extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			title: '',
-			img: '',
-			gender: '',
+			title: "",
+			img: "",
+			gender: "",
 			rate: 0,
-			description: '',
+			description: ""
 		};
 	}
 
@@ -35,13 +37,13 @@ export default class SerieDetailPage extends React.Component {
 			const { action, year, month, day } = await DatePickerAndroid.open({
 				// Use `new Date()` for current date.
 				// May 25 2020. Month 0 is January.
-				date: new Date(2020, 4, 25),
+				date: new Date(2020, 4, 25)
 			});
 			if (action !== DatePickerAndroid.dismissedAction) {
 				// Selected year, month (0-11), day
 			}
 		} catch ({ code, message }) {
-			console.warn('Cannot open date picker', message);
+			console.warn("Cannot open date picker", message);
 		}
 	}
 
@@ -63,7 +65,8 @@ export default class SerieDetailPage extends React.Component {
 				resetScrollToCoords={{ x: 0, y: 0 }}
 				style={styles.container}
 				behavior="padding"
-				contentContainerStyle={styles.ccs}>
+				contentContainerStyle={styles.ccs}
+			>
 				<FormRow>
 					<TextInput
 						onChangeText={title => this.setState({ title })}
@@ -83,7 +86,8 @@ export default class SerieDetailPage extends React.Component {
 				<FormRow>
 					<Picker
 						selectedValue={this.props.shift}
-						onValueChange={gender => this.setState({ gender })}>
+						onValueChange={gender => this.setState({ gender })}
+					>
 						<Picker.Item label="Comédia" value="comedy" />
 						<Picker.Item label="Terror" value="horror" />
 						<Picker.Item label="Policial" value="officer" />
@@ -117,7 +121,18 @@ export default class SerieDetailPage extends React.Component {
 					title="Salvar"
 					onPress={() => {
 						console.log(this.state);
-						this.openDatePicker();
+						CameraRoll.getPhotos({
+							first: 20,
+							assetType: "Photos"
+						})
+							.then(r => {
+								this.setState({ photos: r.edges });
+							})
+							.catch(err => {
+								console.error(err);
+								//Error Loading Images
+							});
+						// this.openDatePicker();
 					}}
 				/>
 			</KeyboardAvoidingView>
@@ -128,16 +143,16 @@ export default class SerieDetailPage extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		paddingLeft: 10,
-		paddingRight: 10,
+		paddingRight: 10
 	},
 	image: {
-		aspectRatio: 1,
+		aspectRatio: 1
 	},
 	baseInput: {
-		color: '#000',
+		color: "#000",
 		paddingRight: 5, // to the placeholder
 		paddingLeft: 5, // to the placeholder
-		paddingBottom: 10,
+		paddingBottom: 10
 	},
 	input: {
 		// fontSize: 25,
@@ -146,12 +161,12 @@ const styles = StyleSheet.create({
 		// fontSize: 18,
 	},
 	sameRow: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
+		flexDirection: "row",
+		justifyContent: "space-between",
 		paddingLeft: 10,
 		paddingRight: 10,
-		marginBottom: 10,
-	},
+		marginBottom: 10
+	}
 	// list: {
 	// 	// flexDirection: 'row',
 	// }

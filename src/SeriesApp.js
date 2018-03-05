@@ -14,10 +14,10 @@ export default class SeriesApp extends React.Component {
         super(props);
 
         console.log(this.props.navigation.state);
-        const { user } = this.props.navigation.state.params;
+        // const { user } = this.props.navigation.state.params;
 
         this.state = {
-            user
+            user: {}
         };
     }
 
@@ -25,11 +25,11 @@ export default class SeriesApp extends React.Component {
         const { user } = this.state;
         const SerieStack = StackNavigator(
             {
-                Main: {
-                    screen: props => <SeriesPage {...props} user={user} />
-                },
                 SerieForm: {
                     screen: props => <SerieFormPage {...props} user={user} />
+                },
+                Main: {
+                    screen: props => <SeriesPage {...props} user={user} />
                 },
                 SerieDetail: {
                     screen: props => <SerieDetailPage {...props} user={user} />,

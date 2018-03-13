@@ -1,52 +1,39 @@
-import React from "react";
+import React from 'react';
 import {
-	StyleSheet,
-	KeyboardAvoidingView,
-	View,
-	Text,
+	Alert,
+	Button,
 	Image,
-	TextInput,
+	KeyboardAvoidingView,
 	Picker,
 	Slider,
-	Button,
-	Alert
-} from "react-native";
-import FormRow from "../components/FormRow";
+	StyleSheet,
+	Text,
+	TextInput,
+	View,
+} from 'react-native';
+import FormRow from '../components/FormRow';
 
-import firebase from "firebase";
+import { connect } from 'react-redux';
 
+import { tryLogin } from '../actions';
+
+@connect(({ user }) => ({ user: 123 }), { tryLogin })
 export default class LoginPage extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			email: "",
-			password: ""
+			email: '',
+			password: '',
 		};
 	}
 
 	tryLogin() {
 		const { email, password } = this.state;
 		if (!email || !password)
-			return Alert.alert("Você preencha os campos de email e senha!");
+			return Alert.alert('Você preencha os campos de email e senha!');
 
-		firebase
-			.auth()
-			.signInWithEmailAndPassword(email, password)
-			.then(user => {
-				console.log("LoginPage", user);
-				this.props.navigation.navigate("Auth", { user });
-			})
-			.catch(error => {
-				console.log(error);
-				Alert.alert("ooopts");
-
-				// firebase
-				// 	.auth()
-				// 	.createUserWithEmailAndPassword(email, password)
-				// 	.then(user => loginUserSuccess(dispatch, user))
-				// 	.catch(() => loginUserFail(dispatch));
-			});
+		this.props.tryLogin(email, password);
 	}
 
 	render() {
@@ -55,8 +42,7 @@ export default class LoginPage extends React.Component {
 				resetScrollToCoords={{ x: 0, y: 0 }}
 				style={styles.container}
 				behavior="padding"
-				contentContainerStyle={styles.ccs}
-			>
+				contentContainerStyle={styles.ccs}>
 				<FormRow>
 					<TextInput
 						onChangeText={email => this.setState({ email })}
@@ -87,19 +73,21 @@ export default class LoginPage extends React.Component {
 	}
 }
 
+// export default connect(({ user }) => ({ user: 123 }), { tryLogin })(LoginPage);
+
 const styles = StyleSheet.create({
 	container: {
 		paddingLeft: 10,
 		paddingRight: 10,
 	},
 	image: {
-		aspectRatio: 1
+		aspectRatio: 1,
 	},
 	baseInput: {
-		color: "#000",
+		color: '#000',
 		paddingRight: 5, // to the placeholder
 		paddingLeft: 5, // to the placeholder
-		paddingBottom: 10
+		paddingBottom: 10,
 	},
 	input: {
 		// fontSize: 25,
@@ -108,15 +96,15 @@ const styles = StyleSheet.create({
 		// fontSize: 18,
 	},
 	sameRow: {
-		flexDirection: "row",
-		justifyContent: "space-between",
+		flexDirection: 'row',
+		justifyContent: 'space-between',
 		paddingLeft: 10,
 		paddingRight: 10,
-		marginBottom: 10
+		marginBottom: 10,
 	},
 	buttonContainer: {
-		marginTop: 5
-	}
+		marginTop: 5,
+	},
 	// list: {
 	// 	// flexDirection: 'row',
 	// }

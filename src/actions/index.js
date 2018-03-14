@@ -38,7 +38,7 @@ export const tryLogin = (email, password) => async dispatch => {
 							onPress: () => {
 								console.log('Cancel Pressed');
 							},
-							style: 'cancel', // ver pra que é isso
+							// style: 'cancel', // Só pra IOS
 						},
 						{
 							text: 'Sim',

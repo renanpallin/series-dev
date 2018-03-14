@@ -25,15 +25,27 @@ export default class LoginPage extends React.Component {
 		this.state = {
 			email: '',
 			password: '',
+			isLoading: false,
 		};
 	}
 
 	tryLogin() {
+		this.setState({ isLoading: true });
 		const { email, password } = this.state;
-		if (!email || !password)
-			return Alert.alert('Você preencha os campos de email e senha!');
+		if (!email || !password) {
+			setTimeout(() => Alert.alert(
+							'Preenchimento inválido',
+							'Você preencha os campos de email e senha!'
+						), 50)
+			return this.setState({ isLoading: false });
+		}
 
-		this.props.tryLogin(email, password);
+		setTimeout(() => {
+			this.props.tryLogin(email, password).then(() => {
+				this.setState({ isLoading: false });
+			});
+
+		}, 500)
 	}
 
 	render() {
@@ -68,6 +80,7 @@ export default class LoginPage extends React.Component {
 						}}
 					/>
 				</View>
+				<Text>{this.state.isLoading.toString()}</Text>
 			</KeyboardAvoidingView>
 		);
 	}

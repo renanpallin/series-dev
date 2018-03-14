@@ -1,11 +1,23 @@
 import firebase from 'firebase';
 import { Alert } from 'react-native';
 
-const loginSuccess = (user, dispath) =>
+const loginSuccess = (user, dispatch) =>
 	dispatch({
 		type: 'SET_USER',
 		user,
 	});
+
+const getMessageByErrorCode = errorCode => {
+	switch (errorCode) {
+		case 'auth/wrong-password':
+			return 'Senha incorreta';
+		case 'auth/user-not-found':
+			return 'Usuário não encontrado';
+		default:
+			return 'Erro desconhecido';
+	}
+};
+
 export const tryLogin = (email, password) => async dispatch => {
 	firebase
 		.auth()
@@ -25,31 +37,36 @@ export const tryLogin = (email, password) => async dispatch => {
 							text: 'Não',
 							onPress: () => {
 								console.log('Cancel Pressed');
+							},
+							style: 'cancel', // ver pra que é isso
+						},
+						{
+							text: 'Sim',
+							onPress: () => {
+								console.log('criando usuário', email, password)
 								firebase
 									.auth()
 									.createUserWithEmailAndPassword(
 										email,
 										password
 									)
-									.then(user => loginSuccess(user, dispatch))
+									.then(user => {
+										console.log('usúario criado!', email, password, user)
+										loginSuccess(user, dispatch)
+									})
 									.catch(error => {
 										Alert.alert(
 											'Oops...',
-											'Um erro ocorreu'
+											getMessageByErrorCode(error.code)
 										);
 									});
 							},
-							style: 'cancel',
-						},
-						{
-							text: 'Sim',
-							onPress: () => console.log('OK Pressed'),
 						},
 					],
 					{ cancelable: false }
 				);
 			} else {
-				Alert.alert('Oops...', 'Um erro ocorreu');
+				Alert.alert('Oops...', getMessageByErrorCode(error.code));
 			}
 		});
 };

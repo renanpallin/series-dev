@@ -15,9 +15,9 @@ import FormRow from '../components/FormRow';
 
 import { connect } from 'react-redux';
 
-import { tryLogin } from '../actions';
+import { tryLogin, getSerieGender } from '../actions';
 
-@connect(({ user }) => ({ user: 123 }), { tryLogin })
+@connect(({ user }) => ({ user }), { tryLogin, getSerieGender })
 export default class LoginPage extends React.Component {
 	constructor(props) {
 		super(props);
@@ -27,6 +27,15 @@ export default class LoginPage extends React.Component {
 			password: '',
 			isLoading: false,
 		};
+	}
+
+	// componentDidMount() {
+	// 	this.props.getSerieGender()
+	// }
+
+	componentDidUpdate(prevProps, prevState) {
+		if (this.props.user)
+			this.props.navigation.navigate('SerieForm');
 	}
 
 	tryLogin() {

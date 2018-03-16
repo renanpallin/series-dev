@@ -1,24 +1,15 @@
 import React from "react";
-import {
-	StyleSheet,
-	KeyboardAvoidingView,
-	View,
-	Text,
-	Image,
-	TextInput,
-	Picker,
-	Slider,
-	Button,
-	DatePickerAndroid,
-	CameraRoll,
-	PermissionsAndroid
-} from "react-native";
+import { Button, CameraRoll, DatePickerAndroid, Image, KeyboardAvoidingView, PermissionsAndroid, Picker, Slider, StyleSheet, Text, TextInput, View } from 'react-native';
 // import series from '../series.json';
 
 import Line from "../components/Line";
 import LongText from "../components/LongText";
 import FormRow from "../components/FormRow";
 
+import { connect } from 'react-redux';
+import { addSerie, getSerieGender } from '../actions';
+
+@connect(null, { addSerie, getSerieGender })
 export default class SerieDetailPage extends React.Component {
 	constructor(props) {
 		super(props);
@@ -59,6 +50,8 @@ export default class SerieDetailPage extends React.Component {
 		// 	description:
 		// 		"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, voluptatibus consectetur alias dolor ullam, repellat natus deleniti. Officiis sint fuga aut possimus alias accusantium consequatur blanditiis itaque unde ad voluptas a assumenda, eum sed necessitatibus ullam asperiores neque architecto dignissimos, non. Temporibus fugit perspiciatis, deserunt quae rem dicta sed soluta quisquam eum, repellendus sunt distinctio deleniti voluptate voluptates. Unde, doloremque.",
 		// };
+		//
+		this.props.getSerieGender()
 
 		return (
 			<KeyboardAvoidingView
@@ -121,17 +114,18 @@ export default class SerieDetailPage extends React.Component {
 					title="Salvar"
 					onPress={() => {
 						console.log(this.state);
-						CameraRoll.getPhotos({
-							first: 20,
-							assetType: "Photos"
-						})
-							.then(r => {
-								this.setState({ photos: r.edges });
-							})
-							.catch(err => {
-								console.error(err);
-								//Error Loading Images
-							});
+						this.props.addSerie(this.state);
+						// CameraRoll.getPhotos({
+						// 	first: 20,
+						// 	assetType: "Photos"
+						// })
+						// 	.then(r => {
+						// 		this.setState({ photos: r.edges });
+						// 	})
+						// 	.catch(err => {
+						// 		console.error(err);
+						// 		//Error Loading Images
+						// 	});
 						// this.openDatePicker();
 					}}
 				/>

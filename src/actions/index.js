@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 
 const loginSuccess = (user, dispatch) =>
 	dispatch({
-		type: 'SET_USER',
+		type: 'LOGIN_USER',
 		user,
 	});
 
@@ -70,3 +70,16 @@ export const tryLogin = (email, password) => async dispatch => {
 			}
 		});
 };
+
+
+export const addSerie = serie => async dispatch => {
+	const { currentUser } = firebase.auth();
+	return await firebase.database().ref(`/user/${currentUser.uid}/series`).push(serie);
+}
+
+export const getSerieGender = () => async dispatch => {
+	console.log('Buscando séries')
+	const series = await firebase.database().ref(`/gender`).once('value')
+	console.log(series)
+	console.log(series.val())
+}

@@ -18,6 +18,11 @@ const getMessageByErrorCode = errorCode => {
 	}
 };
 
+export const testDispath = value => ({
+	type: 'TEST_DISPATCH',
+	value
+})
+
 export const tryLogin = (email, password) => async dispatch => {
 	firebase
 		.auth()

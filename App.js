@@ -7,9 +7,17 @@ import firebase from 'firebase';
 import * as Redux from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'remote-redux-devtools';
+
 import reducers from './src/reducers';
 
-const store = Redux.createStore(reducers, Redux.applyMiddleware(thunk));
+
+// https://github.com/zalmoxisus/remote-redux-devtools
+const composeEnhancers = composeWithDevTools({ realtime: true });
+const store = Redux.createStore(
+    reducers,
+    composeEnhancers(Redux.applyMiddleware(thunk))
+);
 
 export default class App extends React.Component {
     componentDidMount() {
